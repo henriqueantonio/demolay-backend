@@ -1,0 +1,37 @@
+{
+  "name": "master-service",
+  "version": "1.0.0",
+  "author": {
+    "name": "Henrique Olivo Antonio",
+    "email": "henriqueolivoantonio@outlook.com"
+  },
+  "main": "./src/shared/http/server.ts",
+  "license": "MIT",
+  "scripts": {
+    "dev": "tsnd -r tsconfig-paths/register --transpile-only --ignore-watch node_modules --no-notify --exit-child --respawn ./src/shared/infra/http/server.ts",
+    "start": "node ./dist/shared/infra/http/server.js",
+    "build": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.18.6",
+    "@babel/core": "^7.18.6",
+    "@babel/plugin-proposal-class-properties": "^7.18.6",
+    "@babel/plugin-proposal-decorators": "^7.18.6",
+    "@babel/preset-env": "^7.18.6",
+    "@babel/preset-typescript": "^7.18.6",
+    "@types/cors": "^2.8.12",
+    "@types/express": "^4.17.13",
+    "@types/node": "^18.0.3",
+    "babel-plugin-module-resolver": "^4.1.0",
+    "babel-plugin-transform-typescript-metadata": "^0.3.2",
+    "ts-node-dev": "^2.0.0",
+    "tsconfig-paths": "^4.0.0",
+    "typescript": "^4.7.4"
+  },
+  "dependencies": {
+    "@prisma/client": "^4.0.0",
+    "cors": "^2.8.5",
+    "express": "^4.18.1",
+    "prisma": "^4.0.0"
+  }
+}
