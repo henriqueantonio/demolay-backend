@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -8,4 +5,49 @@ generator client {
 datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
+}
+
+enum UserType {
+  BROTHER
+  UNCLE
+}
+
+model User {
+  id          String   @id @default(uuid())
+  name        String
+  email       String   @unique
+  phoneNumber String
+  type        UserType @default(BROTHER)
+  birthDate   DateTime
+  password    String
+
+  meetings MeetingMember[]
+}
+
+model Role {
+  id             String          @id @default(uuid())
+  name           String
+  slug           String          @unique
+  description    String?
+  meetingMembers MeetingMember[]
+}
+
+model MeetingMember {
+  memberId  String
+  member    User    @relation(fields: [memberId], references: [id])
+  meetingId String
+  meeting   Meeting @relation(fields: [meetingId], references: [id])
+  roleId    String
+  role      Role    @relation(fields: [roleId], references: [id])
+
+  @@id([memberId, meetingId])
+}
+
+model Meeting {
+  id          String   @id @default(uuid())
+  description String?
+  startAt     DateTime
+  endAt       DateTime
+
+  members MeetingMember[]
 }
