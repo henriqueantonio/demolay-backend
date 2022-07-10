@@ -9,7 +9,7 @@ class GetMeetingV1Service {
         members: {
           select: {
             member: { select: { id: true, name: true, type: true } },
-            role: { select: { id: true, name: true, description: true } },
+            office: { select: { name: true, description: true } },
           },
         },
       },

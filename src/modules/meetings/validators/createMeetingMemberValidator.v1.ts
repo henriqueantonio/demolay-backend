@@ -5,7 +5,7 @@ async function createMeetingMemberValidatorV1(data: Record<string, any>) {
     .object({
       meetingId: z.string().uuid(),
       memberId: z.string().uuid(),
-      roleId: z.string().uuid(),
+      officeSlug: z.string(),
     })
     .parseAsync(data);
 }

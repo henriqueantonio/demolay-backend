@@ -8,6 +8,7 @@ type TokenPayload = {
   iat: number;
   exp: number;
   sub: string;
+  roles: string[];
 };
 
 function ensureAuthenticatedV1(
@@ -30,9 +31,9 @@ function ensureAuthenticatedV1(
   try {
     const decoded = verify(token, authConfig.jwt.secret);
 
-    const { sub } = decoded as TokenPayload;
+    const { sub, roles } = decoded as TokenPayload;
 
-    req.user = { id: sub };
+    req.user = { id: sub, roles };
 
     return next();
   } catch (err) {

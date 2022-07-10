@@ -4,20 +4,20 @@ import { prisma } from "@/shared/infra/prisma/connection";
 type CreateMeetingMemberV1 = {
   meetingId: string;
   memberId: string;
-  roleId: string;
+  officeSlug: string;
 };
 
 class CreateMeetingMemberV1Service {
   public async execute(data: CreateMeetingMemberV1): Promise<void> {
-    const roleExists = await prisma.meetingMember.findFirst({
-      where: { meetingId: data.meetingId, roleId: data.roleId },
-      include: { role: { select: { isIndividual: true } } },
+    const officeExists = await prisma.meetingMember.findFirst({
+      where: { meetingId: data.meetingId, officeSlug: data.officeSlug },
+      include: { office: { select: { isIndividual: true } } },
     });
 
-    if (roleExists && roleExists.role.isIndividual) {
+    if (officeExists && officeExists.office.isIndividual) {
       throw new AppError({
-        message: "Role is already assigned to a member",
-        code: "demolay.role-already-assigned",
+        message: "Office is already assigned to a member",
+        code: "demolay.office-already-assigned",
         statusCode: 401,
       });
     }
@@ -30,6 +30,27 @@ class CreateMeetingMemberV1Service {
       throw new AppError({
         message: "Member is already assigned to this meeting",
         code: "demolay.member-already-assigned",
+        statusCode: 401,
+      });
+    }
+
+    const member = await prisma.user.findUnique({
+      where: { id: data.memberId },
+    });
+
+    if (!member) {
+      throw new AppError({
+        message: "Member does not exist",
+        code: "demolay.member-does-not-exist",
+        statusCode: 404,
+      });
+    }
+
+    if (member.type === "UNCLE" && data.officeSlug !== "uncle") {
+      throw new AppError({
+        message:
+          "Member is an uncle and can only be assigned to the uncle office",
+        code: "demolay.member-is-uncle",
         statusCode: 401,
       });
     }

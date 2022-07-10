@@ -23,7 +23,10 @@ class AuthenticateUserV1Service {
     phoneNumber,
     password,
   }: AuthenticateUserRequest): Promise<AuthenticateUserResponse> {
-    const user = await prisma.user.findUnique({ where: { phoneNumber } });
+    const user = await prisma.user.findUnique({
+      where: { phoneNumber },
+      include: { roles: { select: { roleSlug: true } } },
+    });
 
     if (!user) {
       throw new AppError({
@@ -46,7 +49,9 @@ class AuthenticateUserV1Service {
       });
     }
 
-    const token = sign({}, secret, {
+    const userRoles = user.roles.map((role) => role.roleSlug);
+
+    const token = sign({ type: user.type, roles: userRoles }, secret, {
       subject: user.id,
       expiresIn,
     });
