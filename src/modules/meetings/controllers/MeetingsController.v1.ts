@@ -7,12 +7,31 @@ import { UpdateMeetingV1Service } from "../services/UpdateMeetingService.v1";
 import { createMeetingValidatorV1 } from "../validators/createMeetingValidator.v1";
 import { deleteMeetingValidatorV1 } from "../validators/deleteMeetingValidator.v1";
 import { updateMeetingValidatorV1 } from "../validators/updateMeetingValidator.v1";
+import { getMeeetingValidatorV1 } from "../validators/getMeeetingValidator.v1";
+import { GetMeetingV1Service } from "../services/GetMeetingService.v1";
+import { FindMeetingsV1Service } from "../services/FindMeetingsService.v1";
 
+const getMeetingV1Service = new GetMeetingV1Service();
+const findMeetingsV1Service = new FindMeetingsV1Service();
 const createMeetingV1Service = new CreateMeetingV1Service();
 const updateMeetingV1Service = new UpdateMeetingV1Service();
 const deleteMeetingV1Service = new DeleteMeetingV1Service();
 
 class MeetingsV1Controller {
+  public async get(req: Request, res: Response): Promise<Response> {
+    const data = await getMeeetingValidatorV1(req.params);
+
+    const meeting = await getMeetingV1Service.execute(data.meetingId);
+
+    return res.json(meeting);
+  }
+
+  public async find(req: Request, res: Response): Promise<Response> {
+    const meetings = await findMeetingsV1Service.execute();
+
+    return res.json(meetings);
+  }
+
   public async create(req: Request, res: Response): Promise<Response> {
     const data = await createMeetingValidatorV1(req.body);
 

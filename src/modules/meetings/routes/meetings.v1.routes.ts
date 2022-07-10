@@ -12,6 +12,10 @@ meetingsV1Router.use(ensureAuthenticatedV1);
 
 meetingsV1Router.use("/:meetingId/members", membersV1Router);
 
+meetingsV1Router.get("/:meetingId", meetingsV1Controller.get);
+
+meetingsV1Router.get("/", meetingsV1Controller.find);
+
 meetingsV1Router.post("/", meetingsV1Controller.create);
 
 meetingsV1Router.put("/:meetingId", meetingsV1Controller.update);
