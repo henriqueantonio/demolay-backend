@@ -39,7 +39,8 @@ CREATE TABLE `MeetingMember` (
     `meetingId` VARCHAR(191) NOT NULL,
     `roleId` VARCHAR(191) NOT NULL,
 
-    PRIMARY KEY (`memberId`, `meetingId`)
+    UNIQUE INDEX `MeetingMember_memberId_meetingId_key`(`memberId`, `meetingId`),
+    PRIMARY KEY (`memberId`, `meetingId`, `roleId`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable

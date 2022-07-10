@@ -3,7 +3,7 @@ import { z } from "zod";
 async function updateMeetingValidatorV1(data: Record<string, any>) {
   return z
     .object({
-      id: z.string().uuid(),
+      meetingId: z.string().uuid(),
       description: z.string().min(1).optional(),
       startAt: z
         .preprocess((arg) => {

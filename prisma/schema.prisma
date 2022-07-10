@@ -51,6 +51,7 @@ model MeetingMember {
   roleId    String
   role      Role    @relation(fields: [roleId], references: [id])
 
+
   @@id([memberId, meetingId])
 }
 

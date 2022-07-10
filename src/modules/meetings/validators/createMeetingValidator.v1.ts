@@ -22,7 +22,7 @@ async function createMeetingValidatorV1(data: Record<string, any>) {
         })
         .optional(),
     })
-    .refine((val) => val.endAt && val.endAt > val.startAt, {
+    .refine((val) => (!val.endAt && true) || val.endAt > val.startAt, {
       message: "endAt must be greater than startAt",
     })
     .parseAsync(data);

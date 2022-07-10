@@ -16,28 +16,34 @@ class MeetingsV1Controller {
   public async create(req: Request, res: Response): Promise<Response> {
     const data = await createMeetingValidatorV1(req.body);
 
-    Object.assign(data, { endAt: data.endAt || addHours(data.startAt, 3) });
+    const newData = {
+      ...data,
+      endAt: data.endAt || addHours(data.startAt, 3),
+    };
 
-    const meeting = await createMeetingV1Service.execute(data);
+    const meeting = await createMeetingV1Service.execute(newData);
 
     return res.json(meeting);
   }
 
   public async update(req: Request, res: Response): Promise<Response> {
-    const data = await updateMeetingValidatorV1({
+    const { meetingId, ...data } = await updateMeetingValidatorV1({
       ...req.body,
       ...req.params,
     });
 
-    const meeting = await updateMeetingV1Service.execute(data);
+    const meeting = await updateMeetingV1Service.execute({
+      id: meetingId,
+      ...data,
+    });
 
     return res.json(meeting);
   }
 
   public async delete(req: Request, res: Response): Promise<Response> {
-    const data = await deleteMeetingValidatorV1(req.params);
+    const { meetingId, ...data } = await deleteMeetingValidatorV1(req.params);
 
-    await deleteMeetingV1Service.execute(data);
+    await deleteMeetingV1Service.execute({ id: meetingId, ...data });
 
     return res.status(201).json();
   }
