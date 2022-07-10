@@ -8,7 +8,7 @@ class GetMeetingV1Service {
       include: {
         members: {
           select: {
-            member: { select: { id: true, name: true, type: true } },
+            member: { select: { id: true, name: true } },
             office: { select: { name: true, description: true } },
           },
         },

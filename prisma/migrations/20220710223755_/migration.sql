@@ -29,7 +29,6 @@ CREATE TABLE `User` (
     `id` VARCHAR(191) NOT NULL,
     `name` VARCHAR(191) NOT NULL,
     `phoneNumber` VARCHAR(191) NOT NULL,
-    `type` ENUM('BROTHER', 'UNCLE') NOT NULL DEFAULT 'BROTHER',
     `birthDate` DATETIME(3) NOT NULL,
     `password` VARCHAR(191) NOT NULL,
 

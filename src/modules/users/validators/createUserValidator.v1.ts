@@ -8,7 +8,7 @@ async function createUsersValidatorV1(data: Record<string, any>) {
         .string()
         .regex(/^[0-9]+$/)
         .min(13),
-      type: z.enum(["BROTHER", "UNCLE"]).default("BROTHER"),
+      role: z.enum(["official", "uncle"]).default("official"),
       birthDate: z.string().transform((value) => new Date(value)),
       password: z.string().min(6),
     })

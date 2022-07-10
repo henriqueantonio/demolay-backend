@@ -36,6 +36,7 @@ class CreateMeetingMemberV1Service {
 
     const member = await prisma.user.findUnique({
       where: { id: data.memberId },
+      include: { roles: { select: { roleSlug: true } } },
     });
 
     if (!member) {
@@ -46,7 +47,9 @@ class CreateMeetingMemberV1Service {
       });
     }
 
-    if (member.type === "UNCLE" && data.officeSlug !== "uncle") {
+    const roles = member.roles.map((role) => role.roleSlug);
+
+    if (roles.includes("uncle") && data.officeSlug !== "uncle") {
       throw new AppError({
         message:
           "Member is an uncle and can only be assigned to the uncle office",

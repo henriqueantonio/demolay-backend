@@ -36,7 +36,7 @@ import { prisma } from "./connection";
       { name: "Sétimo Preceptor", slug: "seventh-preceptor" },
       { name: "Sentinela", slug: "sentinel" },
       { name: "Organista", slug: "organist" },
-      { name: "Tio", slug: "Uncle" },
+      { name: "Tio", slug: "uncle" },
     ],
   });
 })();

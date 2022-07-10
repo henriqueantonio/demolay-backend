@@ -9,7 +9,6 @@ async function updateUsersValidatorV1(data: Record<string, any>) {
         .regex(/^[0-9]+$/)
         .min(13)
         .optional(),
-      type: z.enum(["BROTHER", "UNCLE"]).default("BROTHER").optional(),
       birthDate: z
         .string()
         .transform((value) => new Date(value))
