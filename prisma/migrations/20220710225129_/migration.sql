@@ -3,6 +3,8 @@ CREATE TABLE `Role` (
     `slug` VARCHAR(191) NOT NULL,
     `name` VARCHAR(191) NOT NULL,
     `description` VARCHAR(191) NULL,
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updatedAt` DATETIME(3) NOT NULL,
 
     PRIMARY KEY (`slug`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -12,6 +14,8 @@ CREATE TABLE `Permission` (
     `slug` VARCHAR(191) NOT NULL,
     `name` VARCHAR(191) NOT NULL,
     `description` VARCHAR(191) NULL,
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updatedAt` DATETIME(3) NOT NULL,
 
     PRIMARY KEY (`slug`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -20,6 +24,8 @@ CREATE TABLE `Permission` (
 CREATE TABLE `RolePermission` (
     `roleSlug` VARCHAR(191) NOT NULL,
     `permissionSlug` VARCHAR(191) NOT NULL,
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updatedAt` DATETIME(3) NOT NULL,
 
     PRIMARY KEY (`roleSlug`, `permissionSlug`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -31,6 +37,8 @@ CREATE TABLE `User` (
     `phoneNumber` VARCHAR(191) NOT NULL,
     `birthDate` DATETIME(3) NOT NULL,
     `password` VARCHAR(191) NOT NULL,
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updatedAt` DATETIME(3) NOT NULL,
 
     UNIQUE INDEX `User_phoneNumber_key`(`phoneNumber`),
     PRIMARY KEY (`id`)
@@ -40,6 +48,8 @@ CREATE TABLE `User` (
 CREATE TABLE `UserRole` (
     `userId` VARCHAR(191) NOT NULL,
     `roleSlug` VARCHAR(191) NOT NULL,
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updatedAt` DATETIME(3) NOT NULL,
 
     PRIMARY KEY (`userId`, `roleSlug`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -61,6 +71,8 @@ CREATE TABLE `Office` (
     `name` VARCHAR(191) NOT NULL,
     `description` VARCHAR(191) NULL,
     `isIndividual` BOOLEAN NOT NULL DEFAULT true,
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updatedAt` DATETIME(3) NOT NULL,
 
     PRIMARY KEY (`slug`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -70,6 +82,8 @@ CREATE TABLE `MeetingMember` (
     `memberId` VARCHAR(191) NOT NULL,
     `meetingId` VARCHAR(191) NOT NULL,
     `officeSlug` VARCHAR(191) NOT NULL,
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updatedAt` DATETIME(3) NOT NULL,
 
     PRIMARY KEY (`memberId`, `meetingId`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -80,6 +94,8 @@ CREATE TABLE `Meeting` (
     `description` VARCHAR(191) NULL,
     `startAt` DATETIME(3) NOT NULL,
     `endAt` DATETIME(3) NOT NULL,
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updatedAt` DATETIME(3) NOT NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
