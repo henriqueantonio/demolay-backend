@@ -15,7 +15,9 @@ class MeetingMembersV1Controller {
       ...req.params,
     });
 
-    await createMeetingMemberV1Service.execute(data);
+    const memberId = req.user.id;
+
+    await createMeetingMemberV1Service.execute({ memberId, ...data });
 
     return res.status(201).json();
   }
@@ -23,7 +25,9 @@ class MeetingMembersV1Controller {
   public async delete(req: Request, res: Response): Promise<Response> {
     const data = await deleteMeetingMemberValidatorV1(req.params);
 
-    await deleteMeetingMemberV1Service.execute(data);
+    const memberId = req.user.id;
+
+    await deleteMeetingMemberV1Service.execute({ memberId, ...data });
 
     return res.status(201).json();
   }
